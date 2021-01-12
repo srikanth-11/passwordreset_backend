@@ -109,7 +109,7 @@ app.post("/sign_up", async (req, res) => {
           const mailOptions = {
             from: "url-shortner <kasireddysrikanth27@gmail.com>",
             to: req.body.email,
-            subject: "Password reset",
+            subject: "Registration",
             text: "urlshortner",
             html: mailBody,
           };
