@@ -11,6 +11,7 @@ const valid_url = require("valid-url");
 const bycrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
+var jwt = require("jsonwebtoken")
 
 
 const app = express();
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "https://adoring-ptolemy-1b26f7.netlify.app",
+    origin: "https://adoring-ptolemy-1b26f7.netlify.app,",
   })
 );
 const origin = "https://adoring-ptolemy-1b26f7.netlify.app";
@@ -45,10 +46,17 @@ app.post("/login", async (req, res) => {
         user.password
       );
       if (isUserAuthenticated) {
-        res.json({
-          message: "User Authenticated Successfully",
-          email: req.body.email,
-        });
+
+        
+          let token = jwt.sign({ userid: user._id, email: user.email }, process.env.JWT_TOKEN, { expiresIn: "1h" });
+          res.json({
+              message: 'User Authenticated Successfully',
+              token,
+              data: {
+                  email: user.email
+              }
+          })
+       
       } else {
         res.status(400).json({
           message: "Password is wrong for the provided email",
