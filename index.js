@@ -23,10 +23,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "https://adoring-ptolemy-1b26f7.netlify.app,",
+    origin: "*",
   })
 );
-const origin = "https://adoring-ptolemy-1b26f7.netlify.app";
+const origin = "https://sri-url-shortner-12.netlify.app";
 
 const oAuth2Client = new google.auth.OAuth2(
   process.env.CLIENT_ID,
